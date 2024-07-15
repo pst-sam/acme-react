@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
+    const [toggle, setToggle] = useState(true)
 
     useEffect(() => {
-        toggleMenu();
-    }, [])
+        toggle ? setToggle(!toggleMenu) : toggleMenu();
+    }, [toggle])
     const toggleMenu = () => {
         const hamburgerBtn = document.getElementById('hamburger-button')
         const mobileMenu = document.getElementById('mobile-menu')
@@ -13,7 +14,7 @@ const Header = () => {
         mobileMenu.classList.toggle('hidden')
         mobileMenu.classList.toggle('flex')
         hamburgerBtn.classList.toggle('toggle-btn')
-    }
+    };
 
 
     return (
