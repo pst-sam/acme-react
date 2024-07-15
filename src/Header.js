@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
-    const [toggle, setToggle] = useState(true)
+    const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
-        toggle ? setToggle(!toggleMenu) : toggleMenu();
+        toggle && setToggle(toggleMenu)
     }, [toggle])
     const toggleMenu = () => {
         const hamburgerBtn = document.getElementById('hamburger-button')
