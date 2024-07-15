@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
-    const hamburgerBtn = document.getElementById('hamburger-button')
-    const mobileMenu = document.getElementById('mobile-menu')
 
+    useEffect(() => {
+        toggleMenu();
+    }, [])
     const toggleMenu = () => {
+        const hamburgerBtn = document.getElementById('hamburger-button')
+        const mobileMenu = document.getElementById('mobile-menu')
+
         mobileMenu.classList.toggle('hidden')
         mobileMenu.classList.toggle('flex')
         hamburgerBtn.classList.toggle('toggle-btn')
     }
+
 
     return (
         <header className="bg-teal-700 text-white sticky top-0 z-10">

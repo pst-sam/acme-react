@@ -20,7 +20,7 @@ const ContactForm = () => {
             <form onSubmit={handleSubmit}
                 className="max-w-4xl mx-auto text-2xl sm:text-3xl flex flex-col items-left gap-4"
             >
-                <label for="email">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                     type="email"
                     id="email"
@@ -31,7 +31,7 @@ const ContactForm = () => {
                     placeholder="Your email"
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
                 />
-                <label for="message">Message:</label>
+                <label htmlFor="message">Message:</label>
                 <textarea
                     name="message"
                     id="message"
