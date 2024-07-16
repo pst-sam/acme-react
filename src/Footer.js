@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
+
+    let currentYear = new Date().getFullYear()
+
     return (
         <footer id="footer" className="bg-teal-700 text-white text-xl">
             <section
@@ -21,7 +24,7 @@ const Footer = () => {
 
                 </nav>
                 <div className="flex flex-col sm:gap-2">
-                    <p className="text-right">Copyright &copy; <span id="year">2024</span></p>
+                    <p className="text-right">Copyright &copy; {currentYear} </p>
                     <p className="text-right">All Rights Reserved</p>
                 </div>
             </section>
