@@ -1,13 +1,43 @@
-import React from 'react'
+import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 const Register = () => {
+
+   const [user, setUser] = useState([])
+   const [profile, setProfile] = useState([])
+   const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError:(error) => console.log('Login Failed:', error)
+   })
+
+   useEffect(() => {
+    if (user) {
+        axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+            headers: {
+                Authorization: `Bearer ${user.access_token}`,
+                Accept: 'application/json'
+            }
+        })
+        .then((res) => {
+            setProfile(res.data)
+        })
+        .catch((err) => console.log(err))
+    }
+   }, [user])
+
+   const logout = () => {
+    googleLogout();
+    setProfile(null);
+   }
+
   return (
     
     <section>
     
     <section
             id="contact"
-            className="p-6 my-12 scroll-mt-16 widescreen:section-min-height tallscreen:section-min-height"
+            className="p-6 mt-12 scroll-mt-16 widescreen:section-min-height tallscreen:section-min-height"
         >
             <h2
                 className="text-4xl font-bold text-center sm:text-5xl mb-6 text-slate-900 dark:text-white"
@@ -36,9 +66,9 @@ const Register = () => {
                     minLength="3"
                     maxLength="60"
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
-     />
+                     />
                 <label htmlFor="password">Confirm Password:</label>
-      <input
+                <input
                     type="password"
                     id="confirm"
                     name="password"
@@ -49,12 +79,38 @@ const Register = () => {
                 />
                 
                 <button
-                    className="bg-teal-700 hover:bg-teal-600 active:bg-teal-500 text-white p-3 w-48 rounded-xl border border-solid border-slate-900 dark:border-none"
+                    className="bg-teal-700 hover:bg-teal-600 active:bg-teal-500 text-white p-3 w-full rounded-xl border border-solid border-slate-900 dark:border-none"
                 >
                     Sign Up
                 </button>
-            </form>
+            </form><br />
+            <div className='font-bold flex justify-center'>
+                <h2>OR</h2>
+            </div>
+
         </section>
+        {profile ? (
+            <div>
+                <img src={profile.picture} alt="user image" />
+                <h3>User Logged in</h3>
+                <p>Name: {profile.name}</p>
+                <p>Email Address: {profile.email}</p>
+                <br/>
+                <br/>
+                <div className='flex justify-center'>
+                <button onClick={logout} className='  bg-red-700 mb-12 border rounded-full px-2 pb-1 text-white font-bold'>Log out</button>
+            </div>
+            </div>)
+            :(
+        //         <div className='max-w-4xl mx-auto text-2xl sm:text-3xl mb-12 w-full px-3'>
+        //     <GoogleLogin onSuccess={onSucces} onError={onError}/>
+        // </div> 
+            <div className='flex justify-center'>
+                 <button onClick={login} className='bg-teal-700 mb-12 border rounded-full p-4 text-white font-bold'>Sign in with Google</button>
+             </div>
+            )
+        }
+         
         </section>
   )
 }
