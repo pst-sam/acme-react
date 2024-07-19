@@ -1,11 +1,18 @@
 import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import Icon from 'react-icons-kit'
+import {eyeOff} from 'react-icons-kit/feather/eyeOff'
+import {eye} from 'react-icons-kit/feather/eye'
 
 const Register = () => {
+    const [username, setUserName] = useState('')
+    const [pwd, setPwd] = useState('')
+    const [confirmPwd, setConfirmPwd] = useState('')
+    const [user, setUser] = useState([])
+    const [profile, setProfile] = useState([])
+    const [isVisible, setIsVisible] = useState(true)
 
-   const [user, setUser] = useState([])
-   const [profile, setProfile] = useState([])
    const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError:(error) => console.log('Login Failed:', error)
@@ -29,6 +36,7 @@ const Register = () => {
    const logout = () => {
     googleLogout();
     setProfile(null);
+
    }
 
   return (
@@ -53,26 +61,37 @@ const Register = () => {
                     id="username"
                     name="username"
                     required
+                    autoComplete='off'
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
                     minLength="3"
                     maxLength="60"
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
                 />
-                <label htmlFor="username">Password:</label>
+                <label htmlFor="password">Password:</label>
+                <div className='flex justify-end mr-10'><button><Icon onClick={() => setIsVisible(!isVisible)} className='absolute mt-6' icon={isVisible ? eyeOff : eye} size={30}/></button></div>
                 <input
-                    type="password"
+                    type={isVisible ? 'password' : 'text'}
                     id="password"
                     name="password"
                     required
+                    autoComplete='off'
+                    value={pwd}
+                    onChange={(e) => setPwd(e.target.value)}
                     minLength="3"
                     maxLength="60"
-                    className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
-                     />
+                    className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none "
+                    
+                    /> 
+                     
                 <label htmlFor="password">Confirm Password:</label>
                 <input
-                    type="password"
+                    type={isVisible ? 'password' : 'text'}
                     id="confirm"
                     name="password"
                     required
+                    value={confirmPwd}
+                    onChange={(e) => setConfirmPwd(e.target.value)}
                     minLength="3"
                     maxLength="60"
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
