@@ -18,6 +18,12 @@ const Register = () => {
     onError:(error) => console.log('Login Failed:', error)
    })
 
+   const eyeDiv = () => {
+    const eyeIcon = document.getElementById('eye-icon')
+    eyeIcon.classList.toggle('hidden')
+    eyeIcon.classList.toggle('flex')
+   }
+
    useEffect(() => {
     if (user) {
         axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
@@ -57,7 +63,7 @@ const Register = () => {
             >
                 <label htmlFor="username">Username:</label>
                 <input
-                    type="text"
+                    type="email"
                     id="username"
                     name="username"
                     required
@@ -69,7 +75,7 @@ const Register = () => {
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
                 />
                 <label htmlFor="password">Password:</label>
-                <div className='flex justify-end mr-10'><button><Icon onClick={(e) =>{e.preventDefault()
+                <div id='eye-icon' className='justify-end hidden mr-10 '><button><Icon onClick={(e) =>{e.preventDefault()
                  setIsVisible(!isVisible)}} className='absolute mt-6' icon={isVisible ? eyeOff : eye} size={30}/></button></div>
                 <input
                     type={isVisible ? 'password' : 'text'}
@@ -79,6 +85,7 @@ const Register = () => {
                     autoComplete='off'
                     value={pwd}
                     onChange={(e) => setPwd(e.target.value)}
+                    onClick={eyeDiv}
                     minLength="3"
                     maxLength="60"
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none "
