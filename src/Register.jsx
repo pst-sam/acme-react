@@ -125,7 +125,7 @@ const Register = () => {
         //     <GoogleLogin onSuccess={onSucces} onError={onError}/>
         // </div> 
             <div className='flex justify-center'>
-                 <button onClick={login} className='bg-teal-700 mb-12 border rounded-full p-4 text-white font-bold'>Sign in with Google</button>
+                 <button onClick={login} className='bg-teal-700 mb-12 border rounded-full p-3 text-white font-bold'>Sign in with Google</button>
              </div>
             )
         }
