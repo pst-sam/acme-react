@@ -69,7 +69,8 @@ const Register = () => {
                     className="w-full text-black text-2xl sm:text-3xl p-3 rounded-xl border border-solid border-slate-900 dark:border-none"
                 />
                 <label htmlFor="password">Password:</label>
-                <div className='flex justify-end mr-10'><button><Icon onClick={() => setIsVisible(!isVisible)} className='absolute mt-6' icon={isVisible ? eyeOff : eye} size={30}/></button></div>
+                <div className='flex justify-end mr-10'><button><Icon onClick={(e) =>{e.preventDefault()
+                 setIsVisible(!isVisible)}} className='absolute mt-6' icon={isVisible ? eyeOff : eye} size={30}/></button></div>
                 <input
                     type={isVisible ? 'password' : 'text'}
                     id="password"
